@@ -1,0 +1,72 @@
+body {
+    /* background-image: url("./Images/hardware_bg.jpg"); */
+    /* background-image: linear-gradient(180deg, darkgreen, green, lightgreen,green, darkgreen); */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .success-message {
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    /* background-color: #00b318; */
+    padding: 15px;
+    color: blue;
+    text-align: center;
+  }
+  
+  span {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    color: red;
+    margin-bottom: 20px;
+  }
+  
+  .error {
+    border-style: solid;
+    border: 2px solid #ffa4a4;
+  }
+  
+  /* button {
+    background-image: linear-gradient(to bottom right, green, darkgreen);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button:hover{
+    background-image: linear-gradient(180deg,blue, darkblue);
+    transition: 10s
+  } */
+  
+  button:disabled {
+    cursor: default;
+  }
+
+
+
+  .circle {
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+  }
+  .circle img {
+      border-radius: 50%;
+      display: block;
+  }
+  .circle:after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0) 30%,rgba(255,255,255,1) 70%,rgba(255,255,255,1) 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: 0; left: 10px;
+  }
+
+  h1 {
+    font-size: 72px;
+    background: -webkit-linear-gradient( rgb(0, 200, 10),rgb(50, 120, 250),rgb(10, 0, 250));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
