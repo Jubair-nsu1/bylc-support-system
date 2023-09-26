@@ -1,5 +1,6 @@
 import {useEffect,useState} from 'react';
 import defaultImage from './image/no_image.png' 
+import {SERVER_URL} from '../../../Services/helper'
 
 const SolvedTable = () => {
     const[record,setRecord] = useState([])
@@ -18,7 +19,7 @@ const SolvedTable = () => {
    
     const getData = () =>
     {
-        fetch('http://localhost:1337/view-data-solved/')
+        fetch(`${SERVER_URL}/view-data-solved/`)
          .then(resposne=> resposne.json())
          .then(res=>setRecord(res))
     }
@@ -29,7 +30,7 @@ const SolvedTable = () => {
      
      const showDetail = (id) =>
      {
-       fetch(`http://localhost:1337/view-data/${id}`)
+       fetch(`${SERVER_URL}/view-data/${id}`)
        .then(resposne=> resposne.json())
        .then(res=>setModeldata(res))
      }

@@ -2,6 +2,7 @@ import {useEffect,useState} from 'react';
 import Swal from "sweetalert2";
 import axios from 'axios';
 import defaultImage from './image/no_image.png' 
+import {SERVER_URL} from '../../../Services/helper'
 
 const Table = () => {
 
@@ -34,7 +35,7 @@ const Table = () => {
     //Get All Pending Ticket data 
     const getData = async () =>
     {
-      await fetch('http://localhost:1337/view-data-pending/')
+      await fetch(`${SERVER_URL}/view-data-pending/`)
         .then(resposne=> resposne.json())
         .then(res=>setRecord(res))
     }
@@ -46,7 +47,7 @@ const Table = () => {
     //Get Pending Ticket data by ID
     const showDetail = async (id) =>
     {
-      await fetch(`http://localhost:1337/view-data/${id}`)
+      await fetch(`${SERVER_URL}/view-data/${id}`)
         .then(resposne=> resposne.json())
         .then(res=>setModeldata(res))
     }
@@ -66,7 +67,7 @@ const Table = () => {
       }).then((result) => {
         if (result['isConfirmed']){
 
-          axios.put('http://localhost:1337/ticketSolved/'+id, modeldata)
+          axios.put(`${SERVER_URL}/ticketSolved/`+id, modeldata)
           .then((res) => {
             console.log(res.data)
             window.location = "/dashboard";
@@ -93,7 +94,7 @@ const Table = () => {
       }).then((result) => {
         if (result['isConfirmed']){
 
-          axios.put('http://localhost:1337/ticketHold/'+id, modeldata)
+          axios.put(`${SERVER_URL}/ticketHold/`+id, modeldata)
           .then((res) => {
             console.log(res.data)
             window.location = "/dashboard";

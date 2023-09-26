@@ -2,6 +2,7 @@ import {useEffect,useState} from 'react';
 import Swal from "sweetalert2";
 import axios from 'axios';
 import defaultImage from './image/no_image.png' 
+import {SERVER_URL} from '../../../Services/helper'
 
 const HoldTable = () => {
 
@@ -31,7 +32,7 @@ const HoldTable = () => {
     //Get All Pending Ticket data 
     const getData = async () =>
     {
-      await fetch('http://localhost:1337/view-data-hold/')
+      await fetch(`${SERVER_URL}/view-data-hold/`)
         .then(resposne=> resposne.json())
         .then(res=>setRecord(res))
     }
@@ -42,7 +43,7 @@ const HoldTable = () => {
     //Get Pending Ticket data by ID
     const showDetail = async (id) =>
     {
-      await fetch(`http://localhost:1337/view-data/${id}`)
+      await fetch(`${SERVER_URL}/view-data/${id}`)
         .then(resposne=> resposne.json())
         .then(res=>setModeldata(res))
     }
@@ -62,7 +63,7 @@ const HoldTable = () => {
       }).then((result) => {
         if (result['isConfirmed']){
 
-          axios.post('http://localhost:1337/ticketSolved/'+id, modeldata)
+          axios.post(`${SERVER_URL}/ticketSolved/`+id, modeldata)
           .then((res) => {
             console.log(res.data)
             window.location = "/dashboard";

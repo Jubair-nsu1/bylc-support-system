@@ -1,5 +1,6 @@
 import {useEffect,useState} from 'react';
 import Card from './Card';
+import {SERVER_URL} from '../../../Services/helper';
 
 const Cards = () => {
 
@@ -8,22 +9,23 @@ const Cards = () => {
     const [pendingTickets, setPendingTickets] = useState();
     const [solvedTickets, setSolvedTickets] = useState();
     const [holdTickets, setHoldTickets] = useState();
+    
 
     const getTicketsCount = () =>
     {
-        fetch('http://localhost:1337/totalTickets/')
+        fetch(`${SERVER_URL}/totalTickets/`)
         .then(resposne=> resposne.json())
         .then(res=>setTotalTickets(res))
 
-        fetch('http://localhost:1337/pendingTickets/')
+        fetch(`${SERVER_URL}/pendingTickets/`)
         .then(resposne=> resposne.json())
         .then(res=>setPendingTickets(res))
 
-        fetch('http://localhost:1337/solvedTickets/')
+        fetch(`${SERVER_URL}/solvedTickets/`)
         .then(resposne=> resposne.json())
         .then(res=>setSolvedTickets(res))
 
-        fetch('http://localhost:1337/holdTickets/')
+        fetch(`${SERVER_URL}/holdTickets/`)
         .then(resposne=> resposne.json())
         .then(res=>setHoldTickets(res))
     }

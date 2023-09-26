@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { useSelector, useDispatch } from 'react-redux'
 // import { login,reset } from '../../Features/authSlice'; 
 import Spinner from '../../Components/Spinner';
-// import axios from 'axios';
+import {SERVER_URL} from '../../Services/helper'
 
 import {
     MDBBtn,
@@ -37,11 +37,10 @@ const Login = () => {
             email,
             password,
           }
-      
-            
+                  
         // Send login request to backend
         try{
-            const response = await fetch('http://localhost:1337/api/login', {
+            const response = await fetch(`${SERVER_URL}/api/login`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

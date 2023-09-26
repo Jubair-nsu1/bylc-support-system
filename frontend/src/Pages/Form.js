@@ -1,5 +1,4 @@
 import { useState , useEffect } from "react";
-import axios from "axios";
 
 //Images
 import logo from '../Images/logo.png';
@@ -9,6 +8,7 @@ import laptop from '../Images/laptop.jpg'
 import '../form.css'
 //Components
 import Footer from "../Components/Dashboard/Layout/Footer";
+import {SERVER_URL} from '../Services/helper'
 
 const Form = (props) => 
 {
@@ -90,7 +90,7 @@ const Form = (props) =>
       //   support_needed_on,
       // }
 
-      const response  = await fetch('http://localhost:1337/api/newTicket', {
+      const response  = await fetch(`${SERVER_URL}/api/newTicket`, {
         method:'POST',
         headers: {
           'Content-Type': 'application/json',

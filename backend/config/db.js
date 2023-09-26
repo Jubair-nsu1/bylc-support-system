@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(
-      'mongodb://mongodb:27017/mern-proj',
-      // process.env.MONGO_URI_LOCAL,
+      // 'mongodb://mongodb:27017/mern-proj',
+      process.env.MONGO_URI_LOCAL,
       // process.env.MONGO_URI_DOCKER,
     )
   } catch (error) {
