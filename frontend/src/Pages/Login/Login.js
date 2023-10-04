@@ -4,8 +4,6 @@ import { useState , useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { useSelector, useDispatch } from 'react-redux'
-// import { login,reset } from '../../Features/authSlice'; 
 import Spinner from '../../Components/Spinner';
 import {SERVER_URL} from '../../Services/helper'
 
@@ -36,7 +34,7 @@ const Login = () => {
         const userData = {
             email,
             password,
-          }
+        }
                   
         // Send login request to backend
         try{
@@ -58,22 +56,10 @@ const Login = () => {
 
                   window.location = "/dashboard";
                   
-              } else {
+              } 
+              else {
                   alert('Please check your username and password')
-              }      
-  
-            // if (!response.ok) {
-            //     const errorData = await response.json();
-            //     console.log(errorData)
-            //     alert('Please check your username and password')
-            // } else {
-            //     const data = await response.json();
-            //     console.log("Data from server: "+data);
-            //     // Store the access token in local storage or a cookie
-            //     localStorage.setItem('token', data.token);
-            //     // Redirect the user to the dashboard or home page
-            //     navigate('/dashboard');
-            // }  
+              }  
 
         } catch (error) {
             console.log(error);

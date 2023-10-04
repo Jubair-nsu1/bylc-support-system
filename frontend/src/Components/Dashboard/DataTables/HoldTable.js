@@ -62,11 +62,10 @@ const HoldTable = () => {
         confirmButtonText: 'Confirm'
       }).then((result) => {
         if (result['isConfirmed']){
-
-          axios.post(`${SERVER_URL}/ticketSolved/`+id, modeldata)
+          axios.put(`${SERVER_URL}/ticketSolved/`+id, modeldata)
           .then((res) => {
             console.log(res.data)
-            window.location = "/dashboard";
+            window.location = "/holdtickets";
           }).catch((error) => {
             console.log(error)
           })

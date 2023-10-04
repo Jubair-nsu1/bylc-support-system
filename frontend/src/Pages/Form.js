@@ -1,4 +1,6 @@
-import { useState , useEffect } from "react";
+import { useState , useEffect  } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
+import RingLoader from "react-spinners/ClipLoader";
 
 //Images
 import logo from '../Images/logo.png';
@@ -9,6 +11,7 @@ import '../form.css'
 //Components
 import Footer from "../Components/Dashboard/Layout/Footer";
 import {SERVER_URL} from '../Services/helper'
+
 
 const Form = (props) => 
 {
@@ -50,6 +53,7 @@ const Form = (props) =>
   const [submitted, setSubmitted] = useState(false);
   const [valid, setValid] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   //Email Validator
   const validateEmail = () => {
@@ -65,15 +69,23 @@ const Form = (props) =>
       validateEmail();
   }, [email]);
 
+  // useEffect(() => {
+  //   setLoading(true)
+  //   setTimeout(() => {
+  //     setLoading(false)
+  //   },5000)
+  // }, []);
+
 
 
   // Send table data to DB || Email notification || Submitted Page
   async function TicketSubmit(e) {
     e.preventDefault();
+    
     // if (values.department && values.email && values.fullname && values.designation && values.subject && values.description  && values.support_needed_on) {
     if (department && email && fullname && designation && problem_type && subject && description  && support_needed_on) {  
       setValid(true);
-
+      setLoading(true);
       //Uploading image 
       // const formData = new FormData();
       // formData.append("image", image);
@@ -118,6 +130,7 @@ const Form = (props) =>
 
     //Set Form submitted true
     setSubmitted(true);
+    setLoading(false);
   };
 
 
@@ -133,10 +146,9 @@ const Form = (props) =>
           <h4 class="d-flex justify-content-center mb-5 bg-success text-white">IT Support Request</h4>
 
           {/* Clicking Submit button shows a Welcome Message */}
-          {submitted && valid && (
-
-              <div className="success-message mb-3">
-                
+          {!loading && 
+            submitted && valid && (
+              <div className="success-message mb-3">   
                 <h1 style={{fontWeight:'bold' }}>
                   {" "}
                   Thank You {fullname} ! {" "}
@@ -148,7 +160,21 @@ const Form = (props) =>
                 <div> Please wait for the support. </div>
                 <div> Check your email for support details and follow-up. </div>
               </div>
-          )}
+            )
+          }
+          {loading && 
+            // <div class="d-flex justify-content-center">Please Wait.....</div>
+            <div class="d-flex justify-content-center">
+              <RingLoader
+                color="#36d7b7"
+                loading={loading}
+                size={150}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                speedMultiplier={1}
+              />
+            </div>
+          }
 
           {/* Form Starts */}
           <div class="row">
