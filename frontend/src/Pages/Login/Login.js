@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from '../../Components/Spinner';
+import ClipLoader from "react-spinners/ClipLoader";
 import {SERVER_URL} from '../../Services/helper'
 
 import {
@@ -24,13 +25,30 @@ const Login = () => {
 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    // const navigate = useNavigate();
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
 
     // async function loginSubmit(event) {
     async function loginSubmit(event) {
         event.preventDefault();
+        setLoading(true);
         
+
+        if(!email && !password){
+            setError("Please enter your email and password")
+        }
+        else if(!email){
+            setError("Please enter your email")
+        }
+        else if(!password){
+            setError("Please enter your password")
+        }
+        else{
+            setError('')
+        }
+
         const userData = {
             email,
             password,
@@ -47,6 +65,7 @@ const Login = () => {
               });
             
               const data = await response.json()
+            //   setSuccess(false);
               if (data.user) {
                   localStorage.setItem('token', data.user)
                 
@@ -54,11 +73,14 @@ const Login = () => {
                         position: toast.POSITION.TOP_RIGHT
                     });
 
+                  setLoading(false);
+                  setSuccess(true);
                   window.location = "/dashboard";
-                  
+                  setError('');
               } 
               else {
-                  alert('Please check your username and password')
+                //   alert('Please check your username and password')
+                  setError('Wrong Credentials!');
               }  
 
         } catch (error) {
@@ -88,7 +110,24 @@ const Login = () => {
             </div>
             <h4 class="d-flex justify-content-center mb-5 bg-success text-white">IT SUPPORT SYSTEM</h4>
 
-            <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>
+            <h5 className="fw-normal my-4 " style={{letterSpacing: '1px'}}>Sign into your account</h5>
+            {error && (
+                <span style={{fontWeight:'bold'}}>{error}</span>
+            )}
+
+            {!success && loading && 
+                // <div class="d-flex justify-content-center">Please Wait.....</div>
+                <div class="d-flex justify-content-center">
+                <ClipLoader
+                    color="#36d7b7"
+                    loading={loading}
+                    size={50}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                    speedMultiplier={1}
+                />
+                </div>
+            }
 
             <form id="form" onSubmit={loginSubmit}>
                 <MDBInput wrapperClass='mb-4' 

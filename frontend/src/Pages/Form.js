@@ -1,6 +1,6 @@
 import { useState , useEffect  } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-import RingLoader from "react-spinners/ClipLoader";
+import RingLoader from "react-spinners/RingLoader";
 
 //Images
 import logo from '../Images/logo.png';
@@ -68,15 +68,6 @@ const Form = (props) =>
   useEffect(() => {
       validateEmail();
   }, [email]);
-
-  // useEffect(() => {
-  //   setLoading(true)
-  //   setTimeout(() => {
-  //     setLoading(false)
-  //   },5000)
-  // }, []);
-
-
 
   // Send table data to DB || Email notification || Submitted Page
   async function TicketSubmit(e) {
