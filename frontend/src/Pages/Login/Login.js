@@ -34,7 +34,6 @@ const Login = () => {
     async function loginSubmit(event) {
         event.preventDefault();
         setLoading(true);
-        
 
         if(!email && !password){
             setError("Please enter your email and password")
@@ -73,10 +72,12 @@ const Login = () => {
                         position: toast.POSITION.TOP_RIGHT
                     });
 
-                  setLoading(false);
-                  setSuccess(true);
-                  window.location = "/dashboard";
+                  
                   setError('');
+
+                  window.location = "/dashboard";
+                  setSuccess(true);
+                  setLoading(false);
               } 
               else {
                 //   alert('Please check your username and password')
@@ -115,7 +116,7 @@ const Login = () => {
                 <span style={{fontWeight:'bold'}}>{error}</span>
             )}
 
-            {!success && loading && 
+            {loading && success &&  (
                 // <div class="d-flex justify-content-center">Please Wait.....</div>
                 <div class="d-flex justify-content-center">
                 <ClipLoader
@@ -127,6 +128,7 @@ const Login = () => {
                     speedMultiplier={1}
                 />
                 </div>
+                )
             }
 
             <form id="form" onSubmit={loginSubmit}>
