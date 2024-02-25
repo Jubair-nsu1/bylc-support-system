@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const nodemailer = require("nodemailer");
 const isempty = require('lodash.isempty');
-const helmet = require('helmet');
 const multer = require("multer");
 
 //Files
@@ -28,7 +27,6 @@ const connectDB = require('./config/db')
 const app = express();
 app.use(express.urlencoded({ extended : false }) );
 app.use(express.json());
-app.use(helmet());
 app.use(cors());
 
 
@@ -68,7 +66,6 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
 //     res.json({ status: error });
 //   }
 });
-
 
 app.post('/api/newTicket', async (req, res) => {
 	console.log(req.body);
@@ -110,7 +107,7 @@ app.post('/api/newTicket', async (req, res) => {
             from: process.env.EMAIL,
             to: req.body.email,
             subject: "IT Support Request",
-            html: '<p>Dear '+req.body.fullname+',</p> <p>Greetings!</p> <a>You have requested for a IT support.</a><br> <a>Please have patience until the support is provided.</a><br><br> <a style="font-weight:bold ; font-size:14px">Support Description:</a><br> <a style="color:darkblue ; font-weight:bold">Support Type: </a><a style="color:darkblue">'+req.body.problem_type+'</a><br> <a style="color:darkblue ; font-weight:bold">Priority: </a><a style="color:darkblue">'+req.body.priority+'</a><br> <a style="color:darkblue; font-weight:bold">Support Needed On: </a><a style="color:darkblue">'+req.body.support_needed_on+'</a> <br><br> <a style="font-style: italic ; color:blue">THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL.</a> <br> <p>Regards,</p> <a style="font-weight:bold">IT Department</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Bangladesh Youth Leadership Center</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Medona Tower (Level 12), 28 Mohakhali C/A, Dhaka 1213.</a>'
+            html: '<p>Dear '+req.body.fullname+',</p> <p>Greetings!</p> <a>You have requested for a IT support.</a><br> <a>Please have patience until the support is provided.</a><br><br> <a style="font-weight:bold ; font-size:14px">Support Description:</a><br> <a style="color:darkblue ; font-weight:bold">Support Type: </a><a style="color:darkblue">'+req.body.problem_type+'</a><br> <a style="color:darkblue ; font-weight:bold">Support Needed on: </a><a style="color:darkblue">'+req.body.support_needed_on+'</a><br> <a style="color:darkblue ; font-weight:bold">Priority: </a><a style="color:darkblue">'+req.body.priority+'</a><br><br> <a style="color:darkblue ; font-weight:bold">Subject: </a><a style="color:darkblue">'+req.body.subject+'</a><br> <a style="color:darkblue; font-weight:bold">Details: </a><br><a style="color:darkblue; white-space: pre-wrap">'+req.body.description+'</a> <br><br> <a style="font-style: italic ; color:blue">THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL.</a> <br> <p>Regards,</p> <a style="font-weight:bold">IT Department</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Bangladesh Youth Leadership Center</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Medona Tower (Level 12), 28 Mohakhali C/A, Dhaka 1213.</a>'
         };
 		
 		transporter.sendMail(mailtoUser, (error, info) => {
@@ -126,9 +123,9 @@ app.post('/api/newTicket', async (req, res) => {
 
 		//Sending mail to admin
 		var maillist = [
-			'roni@bylc.org',
-			'a.k.m.serajus.salehin@bylc.org',
-            'jubair421@gmail.com'
+			// 'roni@bylc.org',
+			// 'a.k.m.serajus.salehin@bylc.org',
+            // 'a.k.m.jubair.ahmed@bylc.org'
 		];
 		maillist.toString();
 
@@ -136,7 +133,7 @@ app.post('/api/newTicket', async (req, res) => {
             from: process.env.EMAIL,
             to: maillist,
             subject: "IT Support Request",
-            html: '<p>Dear IT Support Team,</p> <p>Greetings!</p> <a>An user have made a IT support request.</a><br> <a>Please check your dashboard for more details.</a><br><br> <a style="font-weight:bold ; font-size:14px">Support Description:</a><br> <a style="color:darkblue ; font-weight:bold">Department: </a><a style="color:darkblue">'+req.body.department+'</a><br> <a style="color:darkblue ; font-weight:bold">Name: </a><a style="color:darkblue">'+req.body.fullname+'</a><br> <a style="color:darkblue ; font-weight:bold">Designation: </a><a style="color:darkblue">'+req.body.designation+'</a><br> <a style="color:darkblue ; font-weight:bold">Support Type: </a><a style="color:darkblue">'+req.body.problem_type+'</a><br> <a style="color:darkblue ; font-weight:bold">Priority: </a><a style="color:darkblue">'+req.body.priority+'</a><br> <a style="color:darkblue; font-weight:bold">Support Needed On: </a><a style="color:darkblue">'+req.body.support_needed_on+'</a> <br><br> <a style="font-style: italic ; color:blue">THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL.</a> <br> <p>Regards,</p> <a style="font-weight:bold">'+req.body.department+'</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Bangladesh Youth Leadership Center</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Medona Tower (Level 12), 28 Mohakhali C/A, Dhaka 1213.</a>'
+            html: '<p>Dear IT Support Team,</p> <p>Greetings!</p> <a>An user have made a IT support request.</a><br> <a>Please check your dashboard for more details.</a><br><br> <a style="font-weight:bold ; font-size:14px">Support Description:</a><br> <a style="color:darkblue ; font-weight:bold">Department: </a><a style="color:darkblue">'+req.body.department+'</a><br> <a style="color:darkblue ; font-weight:bold">Name: </a><a style="color:darkblue">'+req.body.fullname+'</a><br> <a style="color:darkblue ; font-weight:bold">Designation: </a><a style="color:darkblue">'+req.body.designation+'</a><br> <a style="color:darkblue ; font-weight:bold">Support Type: </a><a style="color:darkblue">'+req.body.problem_type+'</a><br> <a style="color:darkblue; font-weight:bold">Support Needed On: </a><a style="color:darkblue">'+req.body.support_needed_on+'</a><br><br> <a style="color:darkblue ; font-weight:bold">Subject: </a><a style="color:darkblue">'+req.body.subject+'</a><br> <a style="color:darkblue; font-weight:bold">Details: </a><br><a style="color:darkblue; white-space: pre-wrap">'+req.body.description+'</a> <br><br> <a style="font-style: italic ; color:blue">THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL.</a> <br> <p>Regards,</p> <a style="font-weight:bold">'+req.body.department+'</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Bangladesh Youth Leadership Center</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Medona Tower (Level 12), 28 Mohakhali C/A, Dhaka 1213.</a>'
         };
 
 		transporter.sendMail(mailtoAdmin, (error, info) => {
@@ -149,7 +146,6 @@ app.post('/api/newTicket', async (req, res) => {
                 res.status(201).json({status:201,info})
             }
         })
-
     } catch (error) {
         console.log("Error" + error);
         res.status(401).json({status:401,error})
@@ -255,7 +251,7 @@ app.post("/api/login", async (req, res) => {
 app.get("/view-data-pending", async (req, res) => {
     try {
         const query = { state: "Pending" };
-        const result = await Ticket.find(query);
+        const result = await Ticket.find(query).sort({_id:-1}) ;
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json(err);
@@ -266,7 +262,7 @@ app.get("/view-data-pending", async (req, res) => {
 app.get("/view-data-solved", async (req, res) => {
     try {
         const query = { state: "Solved" };
-        const result = await Ticket.find(query);
+        const result = await Ticket.find(query).sort({_id:-1}) ;
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json(err);
@@ -277,7 +273,7 @@ app.get("/view-data-solved", async (req, res) => {
 app.get("/view-data-hold", async (req, res) => {
     try {
         const query = { state: "Hold" };
-        const result = await Ticket.find(query);
+        const result = await Ticket.find(query).sort({_id:-1}) ;
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json(err);
@@ -343,7 +339,7 @@ app.put("/ticketSolved/:id" , async (req, res) => {
             from: process.env.EMAIL,
             to: email,
             subject: "IT Support: Your issue has been solved!",
-            html: '<p>Dear '+req.body.fullname+',</p> <a>'+message+'</a><br> <a>Thanks for your patience.</a><br><br> <a style="font-weight:bold ; font-size:14px">Support Description:</a><br> <a style="color:darkblue ; font-weight:bold">Support Type: </a><a style="color:darkblue">'+req.body.problem_type+'</a><br> <a style="color:darkblue ; font-weight:bold">Priority: </a><a style="color:darkblue">'+req.body.priority+'</a><br> <a style="color:darkblue; font-weight:bold">Support Needed On: </a><a style="color:darkblue">'+req.body.support_needed_on+'</a> <br><br> <a style="font-style: italic ; color:blue">THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL.</a> <br> <p>Regards,</p> <a style="font-weight:bold">IT Department</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Bangladesh Youth Leadership Center</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Medona Tower (Level 12), 28 Mohakhali C/A, Dhaka 1213.</a>'
+            html: '<p>Dear '+req.body.fullname+',</p> <a>'+message+'</a><br> <a>Thanks for your patience.</a><br><br> <a style="font-weight:bold ; font-size:14px">Support Description:</a><br> <a style="color:darkblue ; font-weight:bold">Support Type: </a><a style="color:darkblue">'+req.body.problem_type+'</a><br> <a style="color:darkblue ; font-weight:bold">Support Needed on: </a><a style="color:darkblue">'+req.body.support_needed_on+'</a><br> <a style="color:darkblue ; font-weight:bold">Priority: </a><a style="color:darkblue">'+req.body.priority+'</a><br><br> <a style="color:darkblue ; font-weight:bold">Subject: </a><a style="color:darkblue">'+req.body.subject+'</a><br> <a style="color:darkblue; font-weight:bold">Details: </a><br><a style="color:darkblue; white-space: pre-wrap">'+req.body.description+'</a> <br><br> <a style="font-style: italic ; color:blue">THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL.</a> <br> <p>Regards,</p> <a style="font-weight:bold">IT Department</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Bangladesh Youth Leadership Center</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Medona Tower (Level 12), 28 Mohakhali C/A, Dhaka 1213.</a>'
         };
 
         transporter.sendMail(mailtoUser, (error, info) => {
@@ -369,7 +365,7 @@ app.put("/ticketSolved/:id" , async (req, res) => {
             from: process.env.EMAIL,
             to: maillist,
             subject: "IT Support Request: RESOLVED",
-            html: '<p>Dear IT Support Team,</p> <p>Greetings!</p> <a>Your have solved an issue.</a><br><br> <a style="font-weight:bold ; font-size:14px">Support Provided Description:</a><br> <a style="color:darkblue ; font-weight:bold">Department: </a><a style="color:darkblue">'+req.body.department+'</a><br> <a style="color:darkblue ; font-weight:bold">Name: </a><a style="color:darkblue">'+req.body.fullname+'</a><br> <a style="color:darkblue ; font-weight:bold">Designation: </a><a style="color:darkblue">'+req.body.designation+'</a><br> <a style="color:darkblue ; font-weight:bold">Support Type: </a><a style="color:darkblue">'+req.body.problem_type+'</a><br> <a style="color:darkblue ; font-weight:bold">Priority: </a><a style="color:darkblue">'+req.body.priority+'</a><br> <a style="color:darkblue; font-weight:bold">Support Needed On: </a><a style="color:darkblue">'+req.body.support_needed_on+'</a> <br><br> <a style="font-style: italic ; color:blue">THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL.</a> <br> <p>Regards,</p> <a style="font-weight:bold">'+req.body.department+'</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Bangladesh Youth Leadership Center</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Medona Tower (Level 12), 28 Mohakhali C/A, Dhaka 1213.</a>'
+            html: '<p>Dear IT Support Team,</p> <p>Greetings!</p> <a>Your have solved an issue.</a><br><br> <a style="font-weight:bold ; font-size:14px">Support Provided Description:</a><br> <a style="color:darkblue ; font-weight:bold">Department: </a><a style="color:darkblue">'+req.body.department+'</a><br> <a style="color:darkblue ; font-weight:bold">Name: </a><a style="color:darkblue">'+req.body.fullname+'</a><br> <a style="color:darkblue ; font-weight:bold">Designation: </a><a style="color:darkblue">'+req.body.designation+'</a><br> <a style="color:darkblue ; font-weight:bold">Support Type: </a><a style="color:darkblue">'+req.body.problem_type+'</a><br> <a style="color:darkblue ; font-weight:bold">Subject: </a><a style="color:darkblue">'+req.body.subject+'</a><br> <a style="color:darkblue ; font-weight:bold">Priority: </a><a style="color:darkblue">'+req.body.priority+'</a><br> <a style="color:darkblue; font-weight:bold">Support Needed On: </a><a style="color:darkblue">'+req.body.support_needed_on+'</a> <br><br> <a style="font-style: italic ; color:blue">THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL.</a> <br> <p>Regards,</p> <a style="font-weight:bold">'+req.body.department+'</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Bangladesh Youth Leadership Center</a><br><a style="font-style: italic ; font-size:12px ; font-color:lightgrey">Medona Tower (Level 12), 28 Mohakhali C/A, Dhaka 1213.</a>'
         };
 
         transporter.sendMail(mailtoAdmin, (error, info) => {

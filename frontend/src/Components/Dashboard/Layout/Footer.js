@@ -70,7 +70,7 @@ const footer = () => {
     </MDBContainer>
 
     <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 50, 0.3)' }}>
-      Copyright © 2023 - BYLC IT SUPPORT SYSTEM - Version 1.0 Developed by BYLC IT
+      Copyright © 2023 - BYLC IT SUPPORT SYSTEM - Version 1.3 Developed by BYLC IT
     </div>
   </MDBFooter>
   )

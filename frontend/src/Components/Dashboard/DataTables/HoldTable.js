@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import axios from 'axios';
 import defaultImage from './image/no_image.png' 
 import {SERVER_URL} from '../../../Services/helper'
+const moment = require('moment');
 
 const HoldTable = () => {
 
@@ -93,6 +94,7 @@ const HoldTable = () => {
                             <th style={{fontWeight:'bold'}}>Name</th>
                             <th style={{fontWeight:'bold'}}>Issue Type</th>
                             <th style={{fontWeight:'bold'}}>Priority</th>
+                            <th style={{fontWeight:'bold'}}>Date</th>
                             <th style={{fontWeight:'bold'}}>View Details</th>
                           </tr>
                         </thead>
@@ -105,6 +107,7 @@ const HoldTable = () => {
                               <td>{item.fullname}</td>
                               <td>{item.problem_type}</td>
                               <td>{item.priority}</td>
+                              <td>{moment(item.requestDate).format('DD MMM')}</td>
                               <td><button class="btn btn-success" onClick={(e)=>showDetail(item._id)} data-toggle="modal" data-target="#myModal"><i class="fa-regular fa-clipboard fa-xl"></i>&nbsp;&nbsp; Details</button></td>
                             </tr>
                           )}
@@ -177,7 +180,7 @@ const HoldTable = () => {
                       </tr>
                       <tr>
                         <td style={{fontWeight:'bold'}}>Description</td>
-                        <td>{modeldata.description}</td>
+                        <td style={{whiteSpace: 'pre-wrap' }}>{modeldata.description}</td>
                       </tr>
                     </tbody>
                   </table>

@@ -1,6 +1,8 @@
-import { useState , useEffect  } from "react";
+import { useState , useEffect , useRef  } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import RingLoader from "react-spinners/RingLoader";
+import { Editor } from "@tinymce/tinymce-react";
+
 
 //Images
 import logo from '../Images/logo.png';
@@ -50,9 +52,17 @@ const Form = (props) =>
   
   // };
 
+  //Textarea with Editor
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
+
   const [submitted, setSubmitted] = useState(false);
-  const [valid, setValid] = useState(false);
-  const [error, setError] = useState(null);
+  const [valid, setValid]     = useState(false);
+  const [error, setError]     = useState(null);
   const [loading, setLoading] = useState(false);
 
   //Email Validator
@@ -77,7 +87,8 @@ const Form = (props) =>
     if (department && email && fullname && designation && problem_type && subject && description  && support_needed_on) {  
       setValid(true);
       setLoading(true);
-      //Uploading image 
+
+      // Uploading image 
       // const formData = new FormData();
       // formData.append("image", image);
 
@@ -123,6 +134,7 @@ const Form = (props) =>
     setSubmitted(true);
     setLoading(false);
   };
+
 
 
   return (
@@ -187,6 +199,7 @@ const Form = (props) =>
                           <option value="OPD" >OPD</option>
                           <option value="LDT" >LDT</option>
                           <option value="PDT" >PDT</option>
+                          <option value="BIJOYEE PROJECT" >USAID BIJOYEE PROJECT</option>
                       </select>
                     </div>
                   </div>
@@ -243,6 +256,7 @@ const Form = (props) =>
                         <option value="Assistant Manager" >Assistant Manager</option>
                         <option value="Senior Executive" >Senior Executive</option>
                         <option value="Executive" >Executive</option>
+                        <option value="Junior Executive" >Junior Executive</option>
                         <option value="Intern" >Intern</option>
 										</select>
 									</div>
@@ -273,7 +287,7 @@ const Form = (props) =>
                     </div>
                   </div>
                 )}
-                {submitted && !email && (
+                {submitted && !problem_type && (
                   <span id="problem_type-error">Please select your problem type</span>
                 )}
 									
@@ -292,7 +306,7 @@ const Form = (props) =>
             )}
           </div> 
 
-          <div class="form-group mb-3">
+          {/* <div class="form-group mb-3">
             {!valid && (
             <div>
               <label class="form-check-label"><i class="fa-solid fa-newspaper"></i> Description</label>
@@ -302,7 +316,59 @@ const Form = (props) =>
             {submitted && !description && (
               <span id="description-error">Please enter the description</span>
             )}
-          </div> 
+          </div>  */}
+
+          <div class="form-group mb-3">
+            {!valid && (
+            <div>
+              <label class="form-check-label"><i class="fa-solid fa-newspaper"></i> Description</label>
+              <Editor
+                apiKey="qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc"
+                // class="form-control"
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                name="description"
+                init={{
+                  height: 200,
+                  menubar: false,
+                  plugins: [
+                    "advlist",
+                    "autolink",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "preview",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "code",
+                    "fullscreen",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "code",
+                    "help",
+                    "wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | blocks | " +
+                    "bold italic forecolor | alignleft aligncenter " +
+                    "alignright alignjustify | bullist numlist outdent indent | " +
+                    "removeformat | help",
+                  content_style:
+                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                }}
+
+                value={description} 
+                // onChange={e => setDescription(e.target.value)}
+                onEditorChange={(value, editor) => {setDescription(value)}}
+              />
+            </div>
+            )}
+            {submitted && !description && (
+              <span id="description-error">Please enter the description</span>
+            )}
+          </div>
 
           <div class="row mb-4 mb-2">
               <div class="col-md-6">
