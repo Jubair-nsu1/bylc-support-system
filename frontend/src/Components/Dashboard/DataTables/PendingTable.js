@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import axios from 'axios';
 import defaultImage from './image/no_image.png' 
 import {SERVER_URL} from '../../../Services/helper'
+const moment = require('moment');
 
 const Table = () => {
 
@@ -21,6 +22,8 @@ const Table = () => {
         support_needed_on:"",
         message:"",
         holdReason:"",
+        requestDate:""
+        
     })
 
 
@@ -105,7 +108,7 @@ const Table = () => {
         
       })
     }
-   
+
 
   return (
     <div class="container mt-4">
@@ -124,11 +127,11 @@ const Table = () => {
                             <th style={{fontWeight:'bold'}}>Name</th>
                             <th style={{fontWeight:'bold'}}>Issue Type</th>
                             <th style={{fontWeight:'bold'}}>Priority</th>
+                            <th style={{fontWeight:'bold'}}>Date</th>
                             <th style={{fontWeight:'bold'}}>View Details</th>
                           </tr>
                         </thead>
                         <tbody>
-                        
                           {record.map((item,index)=>
                             <tr key={index}> 
                               <td>{index + 1}</td>
@@ -136,6 +139,7 @@ const Table = () => {
                               <td>{item.fullname}</td>
                               <td>{item.problem_type}</td>
                               <td>{item.priority}</td>
+                              <td>{moment(item.requestDate).format('DD MMM')}</td>
                               <td><button class="btn btn-success" onClick={(e)=>showDetail(item._id)} data-toggle="modal" data-target="#myModal"><i class="fa-regular fa-clipboard fa-xl"></i>&nbsp;&nbsp; Details</button></td>
                             </tr>
                           )}
@@ -144,9 +148,7 @@ const Table = () => {
                 </div>
             </div>
         </div>
- 
- 
-
+        
       {/* First Model */} 
       <div class="modal fade" aria-hidden="true" id="myModal" >
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -208,12 +210,11 @@ const Table = () => {
                       </tr>
                       <tr>
                         <td style={{fontWeight:'bold'}}>Description</td>
-                        <td>{modeldata.description}</td>
+                        <td style={{whiteSpaces: 'pre-wrap'}}><div dangerouslySetInnerHTML={{ __html: modeldata.description }}></div></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-
 
 
                 <div class="container-sm border rounded border-success shadow-sm  mb-4">
